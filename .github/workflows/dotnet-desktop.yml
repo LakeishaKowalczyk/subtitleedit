@@ -43,7 +43,7 @@ jobs:
       shell: pwsh
       run: |
         # Manually or automatically set a semantic version number
-        $version = "1.0.1"  # You can increment this number based on your strategy
+        $version = "1.0.2"  # You can increment this number based on your strategy
         Write-Output "VERSION=$version" >> $env:GITHUB_ENV
     
     - name: Create a new semantic version tag
