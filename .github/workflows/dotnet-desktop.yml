@@ -84,6 +84,12 @@ jobs:
 
     - name: Search for SubtitleEdit-*.zip
       run: dir /s SubtitleEdit-*.zip
+      shell: cmd
+
+    - name: Search for SubtitleEdit-*.zip
+      run: |
+        Get-ChildItem -Path . -Filter "SubtitleEdit-*.zip" -Recurse
+      shell: pwsh
       
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
