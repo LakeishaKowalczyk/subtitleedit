@@ -42,6 +42,7 @@ jobs:
           exit 1
         )
         echo UpdateAssemblyInfo.exe compiled successfully!
+        shell: cmd        
 
     - name: Run build.bat
       run: |
