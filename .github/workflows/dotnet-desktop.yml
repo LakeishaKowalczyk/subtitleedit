@@ -30,20 +30,6 @@ jobs:
     - name: Compile UpdateAssemblyInfo
       run: msbuild src/UpdateAssemblyInfo/UpdateAssemblyInfo.csproj /p:Configuration=Debug /p:OutputPath=bin/debug
 
-    - name: Verify Build Output
-      run: |
-        if not exist "src/UpdateAssemblyInfo/bin/Debug/UpdateAssemblyInfo.exe" (
-          echo UpdateAssemblyInfo.exe not found!
-          exit 1
-        )
-        echo UpdateAssemblyInfo.exe compiled successfully!
-      shell: cmd        
-
-    - name: Run build.bat
-      run: |
-        .\build.bat Build
-      shell: cmd
-
     - name: Generate timestamp
       id: generate_timestamp
       shell: pwsh
@@ -60,6 +46,20 @@ jobs:
         git tag "release-$timestamp"
         git push origin "release-$timestamp"
 
+    - name: Verify Build Output
+      run: |
+        if not exist "src/UpdateAssemblyInfo/bin/Debug/UpdateAssemblyInfo.exe" (
+          echo UpdateAssemblyInfo.exe not found!
+          exit 1
+        )
+        echo UpdateAssemblyInfo.exe compiled successfully!
+      shell: cmd        
+
+    - name: Run build.bat
+      run: |
+        .\build.bat Build
+      shell: cmd
+
     - name: Create GitHub Release
       uses: actions/create-release@v2
       with:
@@ -70,13 +70,15 @@ jobs:
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+        
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./path/to/your/output/SubtitleEdit-*.zip
+        asset_path: ./SubtitleEdit-*.zip
         asset_name: SubtitleEdit-Release.zip
         asset_content_type: application/zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
