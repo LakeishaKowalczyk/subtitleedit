@@ -38,13 +38,22 @@ jobs:
         $timestamp = (Get-Date).ToString("yyyyMMdd-HHmmss")
         Write-Output "TIMESTAMP=$timestamp" >> $env:GITHUB_ENV
 
-    - name: Create a new tag with timestamp
+    - name: Set version number (e.g., from a file or env)
+      id: set_version
       shell: pwsh
       run: |
-        # Create a tag with the timestamp
-        $timestamp = $env:TIMESTAMP
-        git tag "release-$timestamp"
-        git push origin "release-$timestamp"
+        # Manually or automatically set a semantic version number
+        $version = "1.0.0"  # You can increment this number based on your strategy
+        Write-Output "VERSION=$version" >> $env:GITHUB_ENV
+    
+    - name: Create a new semantic version tag
+      shell: pwsh
+      run: |
+        $version = $env:VERSION
+        git tag "$version"
+        git push origin "$version"
+
+
 
     - name: Verify Build Output
       run: |
