@@ -1,12 +1,7 @@
 name: Build and Release .NET Framework App
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -33,7 +28,7 @@ jobs:
       run: nuget restore SubtitleEdit.sln
       
     - name: Compile UpdateAssemblyInfo
-      run: msbuild src/UpdateAssemblyInfo/UpdateAssemblyInfo.csproj /p:Configuration=Debug
+      run: msbuild src/UpdateAssemblyInfo/UpdateAssemblyInfo.csproj /p:Configuration=Debug /p:OutputPath=src/UpdateAssemblyInfo/bin/debug
 
     - name: Verify Build Output
       run: |
