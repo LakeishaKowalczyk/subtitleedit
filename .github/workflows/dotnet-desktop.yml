@@ -53,8 +53,6 @@ jobs:
         git tag "$version"
         git push origin "$version"
 
-
-
     - name: Verify Build Output
       run: |
         if not exist "src/UpdateAssemblyInfo/bin/Debug/UpdateAssemblyInfo.exe" (
@@ -80,7 +78,11 @@ jobs:
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+        
+    - name: Debug upload_url
+      run: echo Upload URL is ${{ steps.create_release.outputs.upload_url }}
+      shell: cmd
+      
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       with:
