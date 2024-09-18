@@ -83,19 +83,16 @@ jobs:
       shell: cmd
 
     - name: Search for SubtitleEdit-*.zip
-      run: dir /s SubtitleEdit-*.zip
-      shell: cmd
-
-    - name: Search for SubtitleEdit-*.zip
+      id: find_zip
       run: |
-        Get-ChildItem -Path . -Filter "SubtitleEdit-*.zip" -Recurse
-      shell: pwsh
-      
+        for /r %%i in (SubtitleEdit-*.zip) do @echo ::set-output name=zip_path::%%i
+      shell: cmd
+    
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./SubtitleEdit-*.zip
+        asset_path: ${{ steps.find_zip.outputs.zip_path }}
         asset_name: SubtitleEdit-Release.zip
         asset_content_type: application/zip
       env:
