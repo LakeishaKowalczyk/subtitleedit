@@ -46,16 +46,19 @@ jobs:
 
     - name: Generate timestamp
       id: generate_timestamp
+      shell: pwsh
       run: |
         # Generate timestamp in the format YYYYMMDD-HHMMSS
-        TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
-        echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
+        $timestamp = (Get-Date).ToString("yyyyMMdd-HHmmss")
+        Write-Output "TIMESTAMP=$timestamp" >> $env:GITHUB_ENV
 
     - name: Create a new tag with timestamp
+      shell: pwsh
       run: |
         # Create a tag with the timestamp
-        git tag "release-$TIMESTAMP"
-        git push origin "release-$TIMESTAMP"
+        $timestamp = $env:TIMESTAMP
+        git tag "release-$timestamp"
+        git push origin "release-$timestamp"
 
     - name: Create GitHub Release
       uses: actions/create-release@v1
