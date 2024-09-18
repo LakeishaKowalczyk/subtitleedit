@@ -19,9 +19,14 @@ jobs:
         fetch-depth: 0
       
     - name: Setup Inno Setup
-      uses: inno-actions/setup-inno-setup@v1
-      with:
-        version: '6.2.1'  # Specify the version you want
+      run: |
+        # Download Inno Setup
+        $url = "https://files.jrsoftware.org/is/6/innosetup-6.3.3.exe"
+        $output = "$env:TEMP\innosetup-6.3.3.exe"
+        Invoke-WebRequest -Uri $url -OutFile $output
+
+        # Install Inno Setup
+        Start-Process -FilePath $output -ArgumentList "/SILENT" -Wait
 
     - name: Setup Visual Studio
       uses: microsoft/setup-msbuild@v2
