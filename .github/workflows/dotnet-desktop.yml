@@ -12,18 +12,7 @@ jobs:
   build:
     runs-on: windows-latest
 
-    steps:
-    - name: Compile UpdateAssemblyInfo
-      run: msbuild src/UpdateAssemblyInfo/UpdateAssemblyInfo.csproj /p:Configuration=Debug
-
-    - name: Verify Build Output
-      run: |
-        if not exist "src/UpdateAssemblyInfo/bin/Debug/UpdateAssemblyInfo.exe" (
-          echo UpdateAssemblyInfo.exe not found!
-          exit 1
-        )
-        echo UpdateAssemblyInfo.exe compiled successfully!
-    
+    steps:   
     - name: Checkout code
       uses: actions/checkout@v4
       with:
@@ -42,6 +31,17 @@ jobs:
 
     - name: Restore NuGet packages
       run: nuget restore SubtitleEdit.sln
+      
+    - name: Compile UpdateAssemblyInfo
+      run: msbuild src/UpdateAssemblyInfo/UpdateAssemblyInfo.csproj /p:Configuration=Debug
+
+    - name: Verify Build Output
+      run: |
+        if not exist "src/UpdateAssemblyInfo/bin/Debug/UpdateAssemblyInfo.exe" (
+          echo UpdateAssemblyInfo.exe not found!
+          exit 1
+        )
+        echo UpdateAssemblyInfo.exe compiled successfully!
 
     - name: Run build.bat
       run: |
