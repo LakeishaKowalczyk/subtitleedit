@@ -28,7 +28,7 @@ jobs:
       run: nuget restore SubtitleEdit.sln
       
     - name: Compile UpdateAssemblyInfo
-      run: msbuild src/UpdateAssemblyInfo/UpdateAssemblyInfo.csproj /p:Configuration=Debug /p:OutputPath=src/UpdateAssemblyInfo/bin/debug
+      run: msbuild src/UpdateAssemblyInfo/UpdateAssemblyInfo.csproj /p:Configuration=Debug /p:OutputPath=bin/debug
 
     - name: Verify Build Output
       run: |
