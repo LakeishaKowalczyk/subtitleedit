@@ -68,7 +68,6 @@ jobs:
       shell: cmd
 
     - name: Create GitHub Release
-      id: create_release
       uses: actions/create-release@v1
       with:
         tag_name: release-${{ env.TIMESTAMP }}
