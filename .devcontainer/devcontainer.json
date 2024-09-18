@@ -1,0 +1,9 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "features": {
+      "dotnet": {
+        "version": "5.0"
+      }
+    },
+    "postCreateCommand": "dotnet --version"
+  }

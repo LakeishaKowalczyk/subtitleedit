@@ -213,21 +213,49 @@ namespace Nikse.SubtitleEdit.Core.AutoTranslate
             }
 
             var url = $"?langpair={sourceLanguageCode}|{targetLanguageCode}{apiKey}&q={Utilities.UrlEncode(text)}";
-            var jsonResultString = _httpClient.GetStringAsync(url).Result;
-            var textResult = _jsonParser.GetFirstObject(jsonResultString, "translatedText");
-            var result = Json.DecodeJsonText(textResult);
+            
+            const int maxRetries = 1000; // 设置最大重试次数
+            int retryCount = 0;
+            string result = null;
 
-            try
+            while (retryCount < maxRetries)
             {
-                result = Regex.Unescape(result);
-            }
-            catch
-            {
-                // ignore
+                try
+                {
+                    var jsonResultString = _httpClient.GetStringAsync(url).Result;
+                    var textResult = _jsonParser.GetFirstObject(jsonResultString, "translatedText");
+                    result = Json.DecodeJsonText(textResult);
+
+                    try
+                    {
+                        result = Regex.Unescape(result);
+                    }
+                    catch
+                    {
+                        // 忽略转义失败
+                    }
+
+                    // 如果 result 不为空，则翻译成功，退出循环
+                    if (!string.IsNullOrWhiteSpace(result))
+                    {
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 可以根据需要记录异常日志 ex.Message
+                    Error = $"Translate failed: {ex.Message}";
+                }
+
+                // 每次重试前可以选择等待一段时间（比如 1 秒）
+                Task.Delay(1000, cancellationToken).Wait(cancellationToken);
+                retryCount++;
             }
 
-            return Task.FromResult(result);
+            // 返回结果或空字符串（如果多次重试仍失败）
+            return Task.FromResult(result ?? string.Empty);
         }
+
 
         public void Dispose() => _httpClient?.Dispose();
     }
