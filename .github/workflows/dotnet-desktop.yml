@@ -70,6 +70,7 @@ jobs:
       shell: cmd
 
     - name: Create GitHub Release
+      id: create_release
       uses: actions/create-release@v1
       with:
         tag_name: release-${{ env.TIMESTAMP }}
@@ -79,7 +80,11 @@ jobs:
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
+    - name: Debug upload_url
+      run: echo "Upload URL: ${{ steps.create_release.outputs.upload_url }}"
+      shell: cmd
+
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       with:
