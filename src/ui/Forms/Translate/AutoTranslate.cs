@@ -840,7 +840,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                                       _autoTranslator.Name == NoLanguageLeftBehindServe.StaticName ||
                                       _singleLineMode;
             bool forceMergeMode = true;  // 强制多行模式，确保最高翻译质量，后期通过 UI 设置
-            int MaxRetryAttempts = -1; // 重试次数，后期通过 UI 设置
+            int maxRetryAttempts = -1; // 重试次数，后期通过 UI 设置
 
             var delaySeconds = Configuration.Settings.Tools.AutoTranslateDelaySeconds;
 
@@ -870,24 +870,20 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         Application.DoEvents();
 
                         // 当翻译结果为空时重试 MaxRetryAttempts 次
+                        int retryAttempts = 0;
+                        var linesMergedAndTranslated = 0;
                         do
                         {                            
-                            var linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
+                            linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
                             Application.DoEvents();
 
-                            if (linesMergedAndTranslated <= 0 && (MaxRetryAttempts == -1 || retryAttempts < MaxRetryAttempts))
+                            if (linesMergedAndTranslated <= 0 && (maxRetryAttempts == -1 || retryAttempts < maxRetryAttempts))
                             {
                                 retryAttempts++; 
                                 await Task.Delay(1000); 
                             }
-                            
-                        } while (linesMergedAndTranslated <= 0 && (MaxRetryAttempts == -1 || retryAttempts < MaxRetryAttempts)); 
 
-
-
-
-
-
+                        } while (linesMergedAndTranslated <= 0 && (maxRetryAttempts == -1 || retryAttempts < maxRetryAttempts)); 
 
                         if (_breakTranslation)
                         {
