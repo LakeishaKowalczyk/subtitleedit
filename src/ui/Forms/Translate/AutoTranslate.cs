@@ -839,9 +839,10 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                                       _autoTranslator.Name == NoLanguageLeftBehindApi.StaticName ||  // NLLB seems to miss some text...
                                       _autoTranslator.Name == NoLanguageLeftBehindServe.StaticName ||
                                       _singleLineMode;
-            bool forceMergeMode = true;  // 强制多行模式，确保最高翻译质量，后期通过 UI 设置
-            //int maxRetryAttempts = -1; // 重试次数，后期通过 UI 设置
+            bool forceMergeMode = false;  // 强制多行模式，确保最高翻译质量，后期通过 UI 设置
+            // 重试次数
             int maxRetryAttempts = Configuration.Settings.Tools.AutoTranslateMaxRetries;
+            // 调试用
             MessageBox.Show("Max Retry Attempts: " + maxRetryAttempts.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             var delaySeconds = Configuration.Settings.Tools.AutoTranslateDelaySeconds;
@@ -879,13 +880,8 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         {                            
                             linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
                             Application.DoEvents();
-
-                            if (linesMergedAndTranslated <= 0 && (maxRetryAttempts == -1 || retryAttempts < maxRetryAttempts))
-                            {
-                                retryAttempts++; 
-                                await Task.Delay(1000); 
-                            }
-
+                            retryAttempts++; 
+                            await Task.Delay(1000);
                         } while (linesMergedAndTranslated <= 0 && (maxRetryAttempts == -1 || retryAttempts < maxRetryAttempts)); 
 
                         if (_breakTranslation)
