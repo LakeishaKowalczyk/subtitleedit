@@ -19,6 +19,20 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace Nikse.SubtitleEdit.Forms.Translate
 {
+
+    // 调试用窗体
+    public partial class StatusForm : Form
+    {
+        public StatusForm()
+        {
+            InitializeComponent();
+        }
+
+        public void UpdateStatus(int retryAttempts, int linesMergedAndTranslated)
+        {
+            this.labelStatus.Text = $"Retry Attempts: {retryAttempts}\nLines Merged and Translated: {linesMergedAndTranslated}";
+        }
+    }
     public sealed partial class AutoTranslate : Form
     {
         public Subtitle TranslatedSubtitle { get; }
@@ -873,18 +887,6 @@ namespace Nikse.SubtitleEdit.Forms.Translate
 
 
                         // 调试用窗体
-                        public partial class StatusForm : Form
-                        {
-                            public StatusForm()
-                            {
-                                InitializeComponent();
-                            }
-
-                            public void UpdateStatus(int retryAttempts, int linesMergedAndTranslated)
-                            {
-                                this.labelStatus.Text = $"Retry Attempts: {retryAttempts}\nLines Merged and Translated: {linesMergedAndTranslated}";
-                            }
-                        }
                         StatusForm statusForm = new StatusForm();
                         statusForm.Show();
 
