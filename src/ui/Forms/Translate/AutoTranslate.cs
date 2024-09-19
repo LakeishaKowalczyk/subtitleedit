@@ -839,6 +839,8 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                                       _autoTranslator.Name == NoLanguageLeftBehindApi.StaticName ||  // NLLB seems to miss some text...
                                       _autoTranslator.Name == NoLanguageLeftBehindServe.StaticName ||
                                       _singleLineMode;
+            bool forceMergeMode = true;  // 强制多行模式，确保最高翻译质量，后期通过 UI 设置
+            int MaxRetryAttempts = -1; // 重试次数，后期通过 UI 设置
 
             var delaySeconds = Configuration.Settings.Tools.AutoTranslateDelaySeconds;
 
@@ -864,19 +866,45 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                             break;
                         }
 
-                        var linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
+                        //var linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
                         Application.DoEvents();
+
+                        // 当翻译结果为空时重试 MaxRetryAttempts 次
+                        do
+                        {                            
+                            var linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
+                            Application.DoEvents();
+
+                            if (linesMergedAndTranslated <= 0 && (MaxRetryAttempts == -1 || retryAttempts < MaxRetryAttempts))
+                            {
+                                retryAttempts++; 
+                                await Task.Delay(1000); 
+                            }
+                            
+                        } while (linesMergedAndTranslated <= 0 && (MaxRetryAttempts == -1 || retryAttempts < MaxRetryAttempts)); 
+
+
+
+
+
+
 
                         if (_breakTranslation)
                         {
                             break;
-                        }
+                        }                        
 
                         if (linesMergedAndTranslated > 0)
                         {
                             index += linesMergedAndTranslated;
                             linesTranslated += linesMergedAndTranslated;
                             _translationProgressIndex = index - 1;
+                            continue;
+                        }
+
+                        // 强制多行模式下，不自动回退到单行模式
+                        if (forceMergeMode)
+                        {
                             continue;
                         }
 
