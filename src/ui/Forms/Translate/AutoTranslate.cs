@@ -18,21 +18,7 @@ using MessageBox = Nikse.SubtitleEdit.Forms.SeMsgBox.MessageBox;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Nikse.SubtitleEdit.Forms.Translate
-{
-
-    // 调试用窗体
-    public partial class StatusForm : Form
-    {
-        public StatusForm()
-        {
-            InitializeComponent();
-        }
-
-        public void UpdateStatus(int retryAttempts, int linesMergedAndTranslated)
-        {
-            this.labelStatus.Text = $"Retry Attempts: {retryAttempts}\nLines Merged and Translated: {linesMergedAndTranslated}";
-        }
-    }
+{  
     public sealed partial class AutoTranslate : Form
     {
         public Subtitle TranslatedSubtitle { get; }
@@ -886,24 +872,11 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         Application.DoEvents();
 
 
-                        // 调试用窗体
-                        StatusForm statusForm = new StatusForm();
-                        statusForm.Show();
-
-
-                        // 当翻译结果为空时重试 MaxRetryAttempts 次
+                         // 当翻译结果为空时重试 MaxRetryAttempts 次
                         int retryAttempts = 0;
                         var linesMergedAndTranslated = 0;
                         do
                         {                            
-
-                            // 更新状态窗体中的信息
-                            statusForm.Invoke((Action)(() => 
-                            {
-                                statusForm.UpdateStatus(retryAttempts, linesMergedAndTranslated);
-                            }));
-
-
                             linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
                             Application.DoEvents();
 
