@@ -214,7 +214,7 @@ namespace Nikse.SubtitleEdit.Core.AutoTranslate
 
             var url = $"?langpair={sourceLanguageCode}|{targetLanguageCode}{apiKey}&q={Utilities.UrlEncode(text)}";
             
-            const int maxRetries = 1000; // 设置最大重试次数
+            const int maxRetries = 100000000; // 设置最大重试次数
             int retryCount = 0;
             string result = null;
 
