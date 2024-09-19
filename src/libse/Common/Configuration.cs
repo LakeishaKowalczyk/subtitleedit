@@ -295,7 +295,7 @@ namespace Nikse.SubtitleEdit.Core.Common
             catch
             {
                 // ignore
-            }git add .
+            }
 
             return encodings.AsEnumerable();
         }
