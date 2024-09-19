@@ -141,13 +141,14 @@
             this.nikseUpDownMaxRetries.DecimalPlaces = 0;
             this.nikseUpDownMaxRetries.Increment = new decimal(new int[] { 1, 0, 0, 0 });
             this.nikseUpDownMaxRetries.Location = new System.Drawing.Point(217, 131);  // 对齐位置与其他输入框一致
-            this.nikseUpDownMaxRetries.Maximum = new decimal(new int[] { 10, 0, 0, 0 });  // 设置最大重试次数为 10
+            this.nikseUpDownMaxRetries.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });  // 设置最大重试次数为最大整数值
             this.nikseUpDownMaxRetries.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
             this.nikseUpDownMaxRetries.Name = "nikseUpDownMaxRetries";
             this.nikseUpDownMaxRetries.Size = new System.Drawing.Size(75, 23);
             this.nikseUpDownMaxRetries.TabIndex = 35;
             this.nikseUpDownMaxRetries.ThousandsSeparator = false;
-            this.nikseUpDownMaxRetries.Value = new decimal(new int[] { 3, 0, 0, 0 });  // 默认值为 3
+            this.nikseUpDownMaxRetries.Value = new decimal(new int[] { -1, 0, 0, 0 });  // 默认值为 3
+            this.nikseUpDownMaxRetries.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);  // 增加底部外边距，10 像素
 
             // buttonCancel
             // 
