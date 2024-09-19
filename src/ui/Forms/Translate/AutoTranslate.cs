@@ -871,11 +871,37 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         //var linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
                         Application.DoEvents();
 
+
+                        // 调试用窗体
+                        public partial class StatusForm : Form
+                        {
+                            public StatusForm()
+                            {
+                                InitializeComponent();
+                            }
+
+                            public void UpdateStatus(int retryAttempts, int linesMergedAndTranslated)
+                            {
+                                this.labelStatus.Text = $"Retry Attempts: {retryAttempts}\nLines Merged and Translated: {linesMergedAndTranslated}";
+                            }
+                        }
+                        StatusForm statusForm = new StatusForm();
+                        statusForm.Show();
+
+
                         // 当翻译结果为空时重试 MaxRetryAttempts 次
                         int retryAttempts = 0;
                         var linesMergedAndTranslated = 0;
                         do
                         {                            
+
+                            // 更新状态窗体中的信息
+                            statusForm.Invoke((Action)(() => 
+                            {
+                                statusForm.UpdateStatus(retryAttempts, linesMergedAndTranslated);
+                            }));
+
+
                             linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
                             Application.DoEvents();
 
