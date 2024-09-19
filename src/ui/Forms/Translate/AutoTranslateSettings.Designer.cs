@@ -32,6 +32,8 @@
             this.labelParagraphHandling = new System.Windows.Forms.Label();
             this.labelMaxBytes = new System.Windows.Forms.Label();
             this.nikseUpDownMaxBytes = new Nikse.SubtitleEdit.Controls.NikseUpDown();
+            this.labelMaxRetries = new System.Windows.Forms.Label();
+            this.nikseUpDownMaxRetries = new Nikse.SubtitleEdit.Controls.NikseUpDown();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.labelPrompt = new System.Windows.Forms.Label();
@@ -119,6 +121,34 @@
             0,
             0});
             // 
+
+            // labelMaxRetries
+            this.labelMaxRetries.AutoSize = true;
+            this.labelMaxRetries.Location = new System.Drawing.Point(18, 135);  // 位置在最大字节数标签下方
+            this.labelMaxRetries.Name = "labelMaxRetries";
+            this.labelMaxRetries.Size = new System.Drawing.Size(120, 13);
+            this.labelMaxRetries.TabIndex = 95;
+            this.labelMaxRetries.Text = "Max retry attempts";
+
+            // Initialize nikseUpDownMaxRetries
+            this.nikseUpDownMaxRetries.BackColor = System.Drawing.SystemColors.Window;
+            this.nikseUpDownMaxRetries.BackColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.nikseUpDownMaxRetries.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(173)))), ((int)(((byte)(179)))));
+            this.nikseUpDownMaxRetries.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.nikseUpDownMaxRetries.ButtonForeColor = System.Drawing.SystemColors.ControlText;
+            this.nikseUpDownMaxRetries.ButtonForeColorDown = System.Drawing.Color.Orange;
+            this.nikseUpDownMaxRetries.ButtonForeColorOver = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.nikseUpDownMaxRetries.DecimalPlaces = 0;
+            this.nikseUpDownMaxRetries.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+            this.nikseUpDownMaxRetries.Location = new System.Drawing.Point(217, 131);  // 对齐位置与其他输入框一致
+            this.nikseUpDownMaxRetries.Maximum = new decimal(new int[] { 10, 0, 0, 0 });  // 设置最大重试次数为 10
+            this.nikseUpDownMaxRetries.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            this.nikseUpDownMaxRetries.Name = "nikseUpDownMaxRetries";
+            this.nikseUpDownMaxRetries.Size = new System.Drawing.Size(75, 23);
+            this.nikseUpDownMaxRetries.TabIndex = 35;
+            this.nikseUpDownMaxRetries.ThousandsSeparator = false;
+            this.nikseUpDownMaxRetries.Value = new decimal(new int[] { 3, 0, 0, 0 });  // 默认值为 3
+
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -225,7 +255,9 @@
             this.Controls.Add(this.nikseUpDownMaxBytes);
             this.Controls.Add(this.labelMaxBytes);
             this.Controls.Add(this.comboBoxParagraphHandling);
-            this.Controls.Add(this.labelParagraphHandling);
+            this.Controls.Add(this.labelParagraphHandling);            
+            this.Controls.Add(this.labelMaxRetries);
+            this.Controls.Add(this.nikseUpDownMaxRetries);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -253,5 +285,7 @@
         private Controls.NikseTextBox nikseTextBoxPrompt;
         private Controls.NikseUpDown nikseUpDownDelay;
         private System.Windows.Forms.Label labelDelay;
+        private System.Windows.Forms.Label labelMaxRetries;  // 新的最大重试次数标签
+        private Controls.NikseUpDown nikseUpDownMaxRetries; // 新的最大重试次数输入框
     }
 }

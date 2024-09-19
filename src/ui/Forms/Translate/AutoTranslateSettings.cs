@@ -22,6 +22,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
             Text = LanguageSettings.Current.General.Advanced;
             labelDelay.Text = LanguageSettings.Current.GoogleTranslate.Delay;
             labelMaxBytes.Text = LanguageSettings.Current.GoogleTranslate.MaxBytes;
+            labelMaxRetries.Text = LanguageSettings.Current.GoogleTranslate.MaxRetries; // 设置最大重试次数标签的文本
             labelParagraphHandling.Text = LanguageSettings.Current.GoogleTranslate.LineMergeHandling;
             labelPrompt.Text = string.Format(LanguageSettings.Current.GoogleTranslate.PromptX, engineName);
             buttonOk.Text = LanguageSettings.Current.General.Ok;
@@ -35,9 +36,17 @@ namespace Nikse.SubtitleEdit.Forms.Translate
             }
             nikseUpDownMaxBytes.Value = Configuration.Settings.Tools.AutoTranslateMaxBytes;
 
+            // 检查并设置 MaxRetries
+            if (Configuration.Settings.Tools.AutoTranslateMaxRetries <= 0)
+            {
+                Configuration.Settings.Tools.AutoTranslateMaxRetries = new ToolsSettings().AutoTranslateMaxRetries;
+            }
+            nikseUpDownMaxRetries.Value = Configuration.Settings.Tools.AutoTranslateMaxRetries;
+
             comboBoxParagraphHandling.Left = labelParagraphHandling.Right + 4;
             nikseUpDownDelay.Left = labelDelay.Right + 4;
             nikseUpDownMaxBytes.Left = labelMaxBytes.Right + 4;
+            nikseUpDownMaxRetries.Left = labelMaxRetries.Right + 4; // Align new control
 
             if (_engineType == typeof(ChatGptTranslate))
             {
@@ -126,6 +135,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
 
             Configuration.Settings.Tools.AutoTranslateDelaySeconds = (int)nikseUpDownDelay.Value;
             Configuration.Settings.Tools.AutoTranslateMaxBytes = (int)nikseUpDownMaxBytes.Value;
+            Configuration.Settings.Tools.AutoTranslateMaxRetries = (int)nikseUpDownMaxRetries.Value; // Save MaxRetries
 
             if (_engineType == typeof(ChatGptTranslate))
             {
