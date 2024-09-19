@@ -41,11 +41,23 @@ jobs:
     - name: Delete tag
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: pwsh  # 使用 PowerShell
       run: |
-        TAG_NAME="1.0.0"
-        curl -X DELETE \
-          -H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/repos/${{ github.repository }}/git/refs/tags/$TAG_NAME"
+        $TAG_NAME = "1.0.0" 
+        Write-Host "Deleting tag $TAG_NAME"
+        
+        $url = "https://api.github.com/repos/${{ github.repository }}/git/refs/tags/$TAG_NAME"
+        $headers = @{ Authorization = "token $env:GITHUB_TOKEN" }
+        
+        try {
+          Invoke-RestMethod -Uri $url -Method DELETE -Headers $headers
+          Write-Host "Tag $TAG_NAME deleted successfully"
+        }
+        catch {
+          Write-Host "Failed to delete tag $TAG_NAME"
+          Write-Host $_.Exception.Message
+        }
+
 
     - name: Set version number (e.g., from a file or env)
       id: set_version
