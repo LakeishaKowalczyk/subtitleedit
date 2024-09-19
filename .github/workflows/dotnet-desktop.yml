@@ -38,12 +38,21 @@ jobs:
         $timestamp = (Get-Date).ToString("yyyyMMdd-HHmmss")
         Write-Output "TIMESTAMP=$timestamp" >> $env:GITHUB_ENV
 
+    - name: Delete tag
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        TAG_NAME="1.0.0"
+        curl -X DELETE \
+          -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/repos/${{ github.repository }}/git/refs/tags/$TAG_NAME"
+
     - name: Set version number (e.g., from a file or env)
       id: set_version
       shell: pwsh
       run: |
         # Manually or automatically set a semantic version number
-        $version = "1.0.2"  # You can increment this number based on your strategy
+        $version = "1.0.0"  # You can increment this number based on your strategy
         Write-Output "VERSION=$version" >> $env:GITHUB_ENV
     
     - name: Create a new semantic version tag
