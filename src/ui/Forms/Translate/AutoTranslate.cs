@@ -843,7 +843,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
             //bool forceMergeMode = Configuration.Settings.Tools.AutoTranslateMaxRetries != 0;
             int maxMergeErrorCount = Configuration.Settings.Tools.AutoTranslateMaxRetries;
             // 调试用
-            MessageBox.Show("forceMergeMode: " + forceMergeMode.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("forceMergeMode: " + forceMergeMode.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // 重试次数
             //int maxRetryAttempts = Configuration.Settings.Tools.AutoTranslateMaxRetries;
@@ -939,17 +939,19 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         }
 
                         TranslatedSubtitle.Paragraphs[index].Text = Utilities.AutoBreakLine(reFormattedText);
-                        /*if (!string.IsNullOrWhiteSpace(translation))
-                        {
-                            linesTranslated++;
+                        if (!string.IsNullOrWhiteSpace(translation))
+                        {   
                             // 调试用
                             MessageBox.Show("Max Retry Attempts: s" + translation + "s", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }*/
+                            linesTranslated++;   
+                                           
+                            _translationProgressIndex = index;
+                            _translationProgressDirty = true;
+                            progressBar1.Value = index;
+                            index++;
+                        }
 
-                        _translationProgressIndex = index;
-                        _translationProgressDirty = true;
-                        progressBar1.Value = index;
-                        index++;
+
 
                         Application.DoEvents();
                         if (_breakTranslation || _singleLineMode)
