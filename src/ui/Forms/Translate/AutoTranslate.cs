@@ -869,11 +869,12 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                             break;
                         }
 
-                        //var linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
+                        var linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
                         Application.DoEvents();
 
 
-                         // 当翻译结果为空时重试 MaxRetryAttempts 次
+                        // 当翻译结果为空时重试 MaxRetryAttempts 次 
+                        /*
                         int retryAttempts = 0;
                         var linesMergedAndTranslated = 0;
                         do
@@ -882,7 +883,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                             Application.DoEvents();
                             retryAttempts++; 
                             await Task.Delay(1000);
-                        } while (linesMergedAndTranslated <= 0 && (maxRetryAttempts == -1 || retryAttempts < maxRetryAttempts)); 
+                        } while (linesMergedAndTranslated <= 0 && (maxRetryAttempts == -1 || retryAttempts < maxRetryAttempts)); */
 
                         if (_breakTranslation)
                         {
@@ -931,7 +932,10 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         }
 
                         TranslatedSubtitle.Paragraphs[index].Text = Utilities.AutoBreakLine(reFormattedText);
-                        linesTranslated++;
+                        if (!string.IsNullOrWhiteSpace(translation))
+                        {
+                            linesTranslated++;
+                        }
 
                         _translationProgressIndex = index;
                         _translationProgressDirty = true;
