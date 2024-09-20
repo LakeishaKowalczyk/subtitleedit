@@ -840,7 +840,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                                       _autoTranslator.Name == NoLanguageLeftBehindServe.StaticName ||
                                       _singleLineMode;
             //bool forceMergeMode = false;  // 强制多行模式，确保最高翻译质量，后期通过 UI 设置
-            bool forceMergeMode = Configuration.Settings.Tools.AutoTranslateMaxRetries;
+            bool forceMergeMode = Configuration.Settings.Tools.AutoTranslateMaxRetries != 0;
             // 重试次数
             //int maxRetryAttempts = Configuration.Settings.Tools.AutoTranslateMaxRetries;
             // 调试用
