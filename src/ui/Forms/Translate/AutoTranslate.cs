@@ -835,13 +835,19 @@ namespace Nikse.SubtitleEdit.Forms.Translate
             timerUpdate.Start();
             var linesTranslated = 0;
 
+
+            int maxMergeErrorCount = Configuration.Settings.Tools.AutoTranslateMaxRetries;
+
             var forceSingleLineMode = Configuration.Settings.Tools.AutoTranslateStrategy == TranslateStrategy.TranslateEachLineSeparately.ToString() ||
                                       _autoTranslator.Name == NoLanguageLeftBehindApi.StaticName ||  // NLLB seems to miss some text...
                                       _autoTranslator.Name == NoLanguageLeftBehindServe.StaticName ||
-                                      _singleLineMode;
+                                      _singleLineMode ||
+                                      maxMergeErrorCount == 0;
             //bool forceMergeMode = false;  // 强制多行模式，确保最高翻译质量，后期通过 UI 设置
             //bool forceMergeMode = Configuration.Settings.Tools.AutoTranslateMaxRetries != 0;
+
             int maxMergeErrorCount = Configuration.Settings.Tools.AutoTranslateMaxRetries;
+
             // 调试用
             //MessageBox.Show("forceMergeMode: " + forceMergeMode.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -874,6 +880,9 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                             break;
                         }
 
+
+
+
                         var linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
                         Application.DoEvents();
 
@@ -903,17 +912,28 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                             continue;
                         }
 
+                        // maxMergeErrorCount =-1 屏蔽单行模式 =0 等价于 Translate Each Line Separately Strategy 分别翻译每一行 >0 一次错误次数后转单行模式  
+                        if (!forceSingleLineMode)
+                        {
+                            if (maxMergeErrorCount < 0)
+                            {
+                                continue;                        
+                            } 
+
+                            if (mergeErrorCount >= maxMergeErrorCount - 1)
+                            {
+                                forceSingleLineMode = true;                        
+                            }
+                            
+                            mergeErrorCount++;
+                        }
+
+
                         // 强制多行模式下，不自动回退到单行模式
                         //if (forceMergeMode)
                         //{
                         //    continue;
                         //}
-
-                        mergeErrorCount++;
-                        if (maxMergeErrorCount >0 && mergeErrorCount > maxMergeErrorCount)
-                        {
-                            forceSingleLineMode = true;
-                        }
 
                         var p = _subtitle.Paragraphs[index];
                         var f = new Formatting();
@@ -939,15 +959,15 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         }
 
                         TranslatedSubtitle.Paragraphs[index].Text = Utilities.AutoBreakLine(reFormattedText);
+
+                        _translationProgressIndex = index;
+                        _translationProgressDirty = true;
+                        progressBar1.Value = index;
                         if (!string.IsNullOrWhiteSpace(translation))
                         {   
                             // 调试用
-                            MessageBox.Show("Max Retry Attempts: s" + translation + "s", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //MessageBox.Show("Max Retry Attempts: s" + translation + "s", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             linesTranslated++;   
-                                           
-                            _translationProgressIndex = index;
-                            _translationProgressDirty = true;
-                            progressBar1.Value = index;
                             index++;
                         }
 

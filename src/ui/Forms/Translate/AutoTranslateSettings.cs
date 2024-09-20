@@ -37,10 +37,10 @@ namespace Nikse.SubtitleEdit.Forms.Translate
             nikseUpDownMaxBytes.Value = Configuration.Settings.Tools.AutoTranslateMaxBytes;
 
             // 检查并设置 MaxRetries
-            if (Configuration.Settings.Tools.AutoTranslateMaxRetries < 0)
+            /*if (Configuration.Settings.Tools.AutoTranslateMaxRetries < -1)
             {
                 Configuration.Settings.Tools.AutoTranslateMaxRetries = new ToolsSettings().AutoTranslateMaxRetries;
-            }
+            }*/
             nikseUpDownMaxRetries.Value = Configuration.Settings.Tools.AutoTranslateMaxRetries;
 
             comboBoxParagraphHandling.Left = labelParagraphHandling.Right + 4;
