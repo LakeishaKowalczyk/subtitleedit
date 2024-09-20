@@ -256,7 +256,7 @@
             this.Controls.Add(this.nikseUpDownMaxBytes);
             this.Controls.Add(this.labelMaxBytes);
             this.Controls.Add(this.comboBoxParagraphHandling);
-            this.Controls.Add(this.labelParagraphHandling);            
+            this.Controls.Add(this.labelParagraphHandling);
             this.Controls.Add(this.labelMaxMerges);
             this.Controls.Add(this.nikseUpDownMaxMerges);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
