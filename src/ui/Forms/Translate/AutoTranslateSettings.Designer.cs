@@ -141,8 +141,8 @@
             this.nikseUpDownMaxRetries.DecimalPlaces = 0;
             this.nikseUpDownMaxRetries.Increment = new decimal(new int[] { 1, 0, 0, 0 });
             this.nikseUpDownMaxRetries.Location = new System.Drawing.Point(217, 131);  // 对齐位置与其他输入框一致
-            this.nikseUpDownMaxRetries.Maximum = int.MaxValue  // 设置最大重试次数为最大整数值
-            this.nikseUpDownMaxRetries.Minimum = -1m
+            this.nikseUpDownMaxRetries.Maximum = int.MaxValue;  // 设置最大重试次数为最大整数值
+            this.nikseUpDownMaxRetries.Minimum = -1m;
             this.nikseUpDownMaxRetries.Name = "nikseUpDownMaxRetries";
             this.nikseUpDownMaxRetries.Size = new System.Drawing.Size(75, 23);
             this.nikseUpDownMaxRetries.TabIndex = 35;
