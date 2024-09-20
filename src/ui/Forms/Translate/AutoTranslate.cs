@@ -18,7 +18,7 @@ using MessageBox = Nikse.SubtitleEdit.Forms.SeMsgBox.MessageBox;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Nikse.SubtitleEdit.Forms.Translate
-{  
+{
     public sealed partial class AutoTranslate : Form
     {
         public Subtitle TranslatedSubtitle { get; }
@@ -874,7 +874,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         if (_breakTranslation)
                         {
                             break;
-                        }                        
+                        }
 
                         if (linesMergedAndTranslated > 0)
                         {
