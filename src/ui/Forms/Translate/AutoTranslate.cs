@@ -840,7 +840,8 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                                       _autoTranslator.Name == NoLanguageLeftBehindServe.StaticName ||
                                       _singleLineMode;
             //bool forceMergeMode = false;  // 强制多行模式，确保最高翻译质量，后期通过 UI 设置
-            bool forceMergeMode = Configuration.Settings.Tools.AutoTranslateMaxRetries != 0;
+            //bool forceMergeMode = Configuration.Settings.Tools.AutoTranslateMaxRetries != 0;
+            int maxMergeErrorCount = Configuration.Settings.Tools.AutoTranslateMaxRetries;
             // 调试用
             MessageBox.Show("forceMergeMode: " + forceMergeMode.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -903,13 +904,13 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         }
 
                         // 强制多行模式下，不自动回退到单行模式
-                        if (forceMergeMode)
-                        {
-                            continue;
-                        }
+                        //if (forceMergeMode)
+                        //{
+                        //    continue;
+                        //}
 
                         mergeErrorCount++;
-                        if (mergeErrorCount > 20)
+                        if (maxMergeErrorCount >0 && mergeErrorCount > maxMergeErrorCount)
                         {
                             forceSingleLineMode = true;
                         }
@@ -938,12 +939,12 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         }
 
                         TranslatedSubtitle.Paragraphs[index].Text = Utilities.AutoBreakLine(reFormattedText);
-                        if (!string.IsNullOrWhiteSpace(translation))
+                        /*if (!string.IsNullOrWhiteSpace(translation))
                         {
                             linesTranslated++;
                             // 调试用
-                            MessageBox.Show("Max Retry Attempts: " + translation, "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                            MessageBox.Show("Max Retry Attempts: s" + translation + "s", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }*/
 
                         _translationProgressIndex = index;
                         _translationProgressDirty = true;
