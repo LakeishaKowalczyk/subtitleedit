@@ -77,7 +77,7 @@
             // labelMaxBytes
             // 
             this.labelMaxBytes.AutoSize = true;
-            this.labelMaxBytes.Location = new System.Drawing.Point(18, 109);
+            this.labelMaxBytes.Location = new System.Drawing.Point(18, 149);
             this.labelMaxBytes.Name = "labelMaxBytes";
             this.labelMaxBytes.Size = new System.Drawing.Size(183, 13);
             this.labelMaxBytes.TabIndex = 94;
@@ -98,7 +98,7 @@
             0,
             0,
             0});
-            this.nikseUpDownMaxBytes.Location = new System.Drawing.Point(217, 105);
+            this.nikseUpDownMaxBytes.Location = new System.Drawing.Point(217, 145);
             this.nikseUpDownMaxBytes.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -124,7 +124,7 @@
 
             // labelMaxMerges
             this.labelMaxMerges.AutoSize = true;
-            this.labelMaxMerges.Location = new System.Drawing.Point(112, 50);
+            this.labelMaxMerges.Location = new System.Drawing.Point(19, 62);
             this.labelMaxMerges.Name = "labelMaxMerges";
             this.labelMaxMerges.Size = new System.Drawing.Size(120, 13);
             this.labelMaxMerges.TabIndex = 95;
@@ -140,7 +140,7 @@
             this.nikseUpDownMaxMerges.ButtonForeColorOver = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
             this.nikseUpDownMaxMerges.DecimalPlaces = 0;
             this.nikseUpDownMaxMerges.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-            this.nikseUpDownMaxMerges.Location = new System.Drawing.Point(217, 46);
+            this.nikseUpDownMaxMerges.Location = new System.Drawing.Point(217, 62);
             this.nikseUpDownMaxMerges.Maximum = int.MaxValue;
             this.nikseUpDownMaxMerges.Minimum = -1m;
             this.nikseUpDownMaxMerges.Name = "nikseUpDownMaxMerges";
@@ -154,7 +154,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(378, 232);
+            this.buttonCancel.Location = new System.Drawing.Point(378, 272);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 101;
@@ -166,7 +166,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(297, 232);
+            this.buttonOk.Location = new System.Drawing.Point(297, 272);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 100;
@@ -177,7 +177,7 @@
             // labelPrompt
             // 
             this.labelPrompt.AutoSize = true;
-            this.labelPrompt.Location = new System.Drawing.Point(19, 149);
+            this.labelPrompt.Location = new System.Drawing.Point(19, 189);
             this.labelPrompt.Name = "labelPrompt";
             this.labelPrompt.Size = new System.Drawing.Size(102, 13);
             this.labelPrompt.TabIndex = 98;
@@ -189,7 +189,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nikseTextBoxPrompt.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.nikseTextBoxPrompt.Location = new System.Drawing.Point(22, 166);
+            this.nikseTextBoxPrompt.Location = new System.Drawing.Point(22, 206);
             this.nikseTextBoxPrompt.Multiline = true;
             this.nikseTextBoxPrompt.Name = "nikseTextBoxPrompt";
             this.nikseTextBoxPrompt.Size = new System.Drawing.Size(431, 50);
@@ -210,7 +210,7 @@
             0,
             0,
             0});
-            this.nikseUpDownDelay.Location = new System.Drawing.Point(222, 62);
+            this.nikseUpDownDelay.Location = new System.Drawing.Point(222, 102);
             this.nikseUpDownDelay.Maximum = new decimal(new int[] {
             100,
             0,
@@ -236,7 +236,7 @@
             // labelDelay
             // 
             this.labelDelay.AutoSize = true;
-            this.labelDelay.Location = new System.Drawing.Point(19, 67);
+            this.labelDelay.Location = new System.Drawing.Point(19, 107);
             this.labelDelay.Name = "labelDelay";
             this.labelDelay.Size = new System.Drawing.Size(179, 13);
             this.labelDelay.TabIndex = 101;
@@ -246,7 +246,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(465, 267);
+            this.ClientSize = new System.Drawing.Size(465, 307);
             this.Controls.Add(this.labelDelay);
             this.Controls.Add(this.nikseUpDownDelay);
             this.Controls.Add(this.nikseTextBoxPrompt);
