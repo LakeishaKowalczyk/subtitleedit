@@ -9028,7 +9028,7 @@ namespace Nikse.SubtitleEdit.Core.Settings
                 textWriter.WriteElementString("OllamaModel", settings.Tools.OllamaModel);
                 textWriter.WriteElementString("OllamaPrompt", settings.Tools.OllamaPrompt);
                 textWriter.WriteElementString("OllamaApiUrl", settings.Tools.OllamaApiUrl);
-                textWriter.WriteElementString("AnthropicPrompt", settings.Tools.AnthropicPrompt);settings
+                textWriter.WriteElementString("AnthropicPrompt", settings.Tools.AnthropicPrompt);
                 textWriter.WriteElementString("AnthropicApiKey", settings.Tools.AnthropicApiKey);
                 textWriter.WriteElementString("AnthropicApiModel", settings.Tools.AnthropicApiModel);
                 textWriter.WriteElementString("AutoTranslateDelaySeconds", settings.Tools.AutoTranslateDelaySeconds.ToString(CultureInfo.InvariantCulture));
