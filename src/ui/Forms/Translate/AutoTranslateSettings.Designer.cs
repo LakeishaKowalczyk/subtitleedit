@@ -280,13 +280,13 @@
         private System.Windows.Forms.Label labelParagraphHandling;
         private System.Windows.Forms.Label labelMaxBytes;
         private Controls.NikseUpDown nikseUpDownMaxBytes;
+        private System.Windows.Forms.Label labelMaxRetries;  // 新的最大重试次数标签
+        private Controls.NikseUpDown nikseUpDownMaxRetries; // 新的最大重试次数输入框
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Label labelPrompt;
         private Controls.NikseTextBox nikseTextBoxPrompt;
         private Controls.NikseUpDown nikseUpDownDelay;
         private System.Windows.Forms.Label labelDelay;
-        private System.Windows.Forms.Label labelMaxRetries;  // 新的最大重试次数标签
-        private Controls.NikseUpDown nikseUpDownMaxRetries; // 新的最大重试次数输入框
     }
 }

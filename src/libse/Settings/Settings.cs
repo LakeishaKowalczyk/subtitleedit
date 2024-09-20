@@ -2317,6 +2317,12 @@ namespace Nikse.SubtitleEdit.Core.Settings
                 settings.Tools.AutoTranslateMaxBytes = Convert.ToInt32(subNode.InnerText, CultureInfo.InvariantCulture);
             }
 
+            subNode = node.SelectSingleNode("AutoTranslateMaxRetries");
+            if (subNode != null)
+            {
+                settings.Tools.AutoTranslateMaxRetries = Convert.ToInt32(subNode.InnerText, CultureInfo.InvariantCulture);
+            }            
+
             subNode = node.SelectSingleNode("AutoTranslateStrategy");
             if (subNode != null)
             {
@@ -9022,11 +9028,12 @@ namespace Nikse.SubtitleEdit.Core.Settings
                 textWriter.WriteElementString("OllamaModel", settings.Tools.OllamaModel);
                 textWriter.WriteElementString("OllamaPrompt", settings.Tools.OllamaPrompt);
                 textWriter.WriteElementString("OllamaApiUrl", settings.Tools.OllamaApiUrl);
-                textWriter.WriteElementString("AnthropicPrompt", settings.Tools.AnthropicPrompt);
+                textWriter.WriteElementString("AnthropicPrompt", settings.Tools.AnthropicPrompt);settings
                 textWriter.WriteElementString("AnthropicApiKey", settings.Tools.AnthropicApiKey);
                 textWriter.WriteElementString("AnthropicApiModel", settings.Tools.AnthropicApiModel);
                 textWriter.WriteElementString("AutoTranslateDelaySeconds", settings.Tools.AutoTranslateDelaySeconds.ToString(CultureInfo.InvariantCulture));
                 textWriter.WriteElementString("AutoTranslateMaxBytes", settings.Tools.AutoTranslateMaxBytes.ToString(CultureInfo.InvariantCulture));
+                textWriter.WriteElementString("AutoTranslateMaxRetries", settings.Tools.AutoTranslateMaxRetries.ToString(CultureInfo.InvariantCulture));
                 textWriter.WriteElementString("AutoTranslateStrategy", settings.Tools.AutoTranslateStrategy);
                 textWriter.WriteElementString("GeminiProApiKey", settings.Tools.GeminiProApiKey);
                 textWriter.WriteElementString("TextToSpeechEngine", settings.Tools.TextToSpeechEngine);

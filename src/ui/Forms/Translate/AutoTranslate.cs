@@ -843,16 +843,6 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                                       _autoTranslator.Name == NoLanguageLeftBehindServe.StaticName ||
                                       _singleLineMode ||
                                       maxMergeErrorCount == 0;
-            //bool forceMergeMode = false;  // 强制多行模式，确保最高翻译质量，后期通过 UI 设置
-            //bool forceMergeMode = Configuration.Settings.Tools.AutoTranslateMaxRetries != 0;
-
-            // 调试用
-            //MessageBox.Show("forceMergeMode: " + forceMergeMode.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // 重试次数
-            //int maxRetryAttempts = Configuration.Settings.Tools.AutoTranslateMaxRetries;
-            // 调试用
-            //MessageBox.Show("Max Retry Attempts: " + maxRetryAttempts.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             var delaySeconds = Configuration.Settings.Tools.AutoTranslateDelaySeconds;
 
