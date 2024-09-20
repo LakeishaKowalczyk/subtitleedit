@@ -846,8 +846,6 @@ namespace Nikse.SubtitleEdit.Forms.Translate
             //bool forceMergeMode = false;  // 强制多行模式，确保最高翻译质量，后期通过 UI 设置
             //bool forceMergeMode = Configuration.Settings.Tools.AutoTranslateMaxRetries != 0;
 
-            int maxMergeErrorCount = Configuration.Settings.Tools.AutoTranslateMaxRetries;
-
             // 调试用
             //MessageBox.Show("forceMergeMode: " + forceMergeMode.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -924,7 +922,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                             {
                                 forceSingleLineMode = true;                        
                             }
-                            
+
                             mergeErrorCount++;
                         }
 
