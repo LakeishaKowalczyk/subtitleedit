@@ -844,7 +844,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
             // 重试次数
             //int maxRetryAttempts = Configuration.Settings.Tools.AutoTranslateMaxRetries;
             // 调试用
-            MessageBox.Show("Max Retry Attempts: " + maxRetryAttempts.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Max Retry Attempts: " + maxRetryAttempts.ToString(), "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             var delaySeconds = Configuration.Settings.Tools.AutoTranslateDelaySeconds;
 
