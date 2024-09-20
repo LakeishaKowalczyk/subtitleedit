@@ -835,8 +835,8 @@ namespace Nikse.SubtitleEdit.Forms.Translate
             timerUpdate.Start();
             var linesTranslated = 0;
 
-
-            int maxMergeErrorCount = Configuration.Settings.Tools.AutoTranslateMaxRetries;
+            // Max merge attempts(always=-1,never=0), fallback to forceSingleLineMode after exceeding the number of attempts
+            int maxMergeErrorCount = Configuration.Settings.Tools.AutoTranslateMaxMerges;
 
             var forceSingleLineMode = Configuration.Settings.Tools.AutoTranslateStrategy == TranslateStrategy.TranslateEachLineSeparately.ToString() ||
                                       _autoTranslator.Name == NoLanguageLeftBehindApi.StaticName ||  // NLLB seems to miss some text...
@@ -868,24 +868,8 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                             break;
                         }
 
-
-
-
                         var linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
                         Application.DoEvents();
-
-
-                        // 当翻译结果为空时重试 MaxRetryAttempts 次 
-                        /*
-                        int retryAttempts = 0;
-                        var linesMergedAndTranslated = 0;
-                        do
-                        {                            
-                            linesMergedAndTranslated = await MergeAndSplitHelper.MergeAndTranslateIfPossible(_subtitle, TranslatedSubtitle, source, target, index, _autoTranslator, forceSingleLineMode, _cancellationTokenSource.Token);
-                            Application.DoEvents();
-                            retryAttempts++; 
-                            await Task.Delay(1000);
-                        } while (linesMergedAndTranslated <= 0 && (maxRetryAttempts == -1 || retryAttempts < maxRetryAttempts)); */
 
                         if (_breakTranslation)
                         {
@@ -900,7 +884,6 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                             continue;
                         }
 
-                        // maxMergeErrorCount =-1 屏蔽单行模式 =0 等价于 Translate Each Line Separately Strategy 分别翻译每一行 >0 一次错误次数后转单行模式  
                         if (!forceSingleLineMode)
                         {
                             if (maxMergeErrorCount < 0)
@@ -916,19 +899,11 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                             mergeErrorCount++;
                         }
 
-
-                        // 强制多行模式下，不自动回退到单行模式
-                        //if (forceMergeMode)
-                        //{
-                        //    continue;
-                        //}
-
                         var p = _subtitle.Paragraphs[index];
                         var f = new Formatting();
                         var unformattedText = f.SetTagsAndReturnTrimmed(p.Text, source.Code);
 
-                        var translation = await _autoTranslator.Translate(unformattedText, source.Code, target.Code, _cancellationTokenSource.Token);
-                        
+                        var translation = await _autoTranslator.Translate(unformattedText, source.Code, target.Code, _cancellationTokenSource.Token);                       
 
 
                         if (_breakTranslation)
@@ -951,10 +926,9 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         _translationProgressIndex = index;
                         _translationProgressDirty = true;
                         progressBar1.Value = index;
+                        // Proceed to the next line only after successfully obtaining the translation to avoid intermittent translation results
                         if (!string.IsNullOrWhiteSpace(translation))
                         {   
-                            // 调试用
-                            //MessageBox.Show("Max Retry Attempts: s" + translation + "s", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             linesTranslated++;   
                             index++;
                         }

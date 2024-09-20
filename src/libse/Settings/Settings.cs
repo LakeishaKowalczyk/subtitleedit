@@ -2317,10 +2317,10 @@ namespace Nikse.SubtitleEdit.Core.Settings
                 settings.Tools.AutoTranslateMaxBytes = Convert.ToInt32(subNode.InnerText, CultureInfo.InvariantCulture);
             }
 
-            subNode = node.SelectSingleNode("AutoTranslateMaxRetries");
+            subNode = node.SelectSingleNode("AutoTranslateMaxMerges");
             if (subNode != null)
             {
-                settings.Tools.AutoTranslateMaxRetries = Convert.ToInt32(subNode.InnerText, CultureInfo.InvariantCulture);
+                settings.Tools.AutoTranslateMaxMerges = Convert.ToInt32(subNode.InnerText, CultureInfo.InvariantCulture);
             }            
 
             subNode = node.SelectSingleNode("AutoTranslateStrategy");
@@ -9033,7 +9033,7 @@ namespace Nikse.SubtitleEdit.Core.Settings
                 textWriter.WriteElementString("AnthropicApiModel", settings.Tools.AnthropicApiModel);
                 textWriter.WriteElementString("AutoTranslateDelaySeconds", settings.Tools.AutoTranslateDelaySeconds.ToString(CultureInfo.InvariantCulture));
                 textWriter.WriteElementString("AutoTranslateMaxBytes", settings.Tools.AutoTranslateMaxBytes.ToString(CultureInfo.InvariantCulture));
-                textWriter.WriteElementString("AutoTranslateMaxRetries", settings.Tools.AutoTranslateMaxRetries.ToString(CultureInfo.InvariantCulture));
+                textWriter.WriteElementString("AutoTranslateMaxMerges", settings.Tools.AutoTranslateMaxMerges.ToString(CultureInfo.InvariantCulture));
                 textWriter.WriteElementString("AutoTranslateStrategy", settings.Tools.AutoTranslateStrategy);
                 textWriter.WriteElementString("GeminiProApiKey", settings.Tools.GeminiProApiKey);
                 textWriter.WriteElementString("TextToSpeechEngine", settings.Tools.TextToSpeechEngine);
