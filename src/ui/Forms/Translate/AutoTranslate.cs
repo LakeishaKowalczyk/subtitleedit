@@ -903,8 +903,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         var f = new Formatting();
                         var unformattedText = f.SetTagsAndReturnTrimmed(p.Text, source.Code);
 
-                        var translation = await _autoTranslator.Translate(unformattedText, source.Code, target.Code, _cancellationTokenSource.Token);                       
-
+                        var translation = await _autoTranslator.Translate(unformattedText, source.Code, target.Code, _cancellationTokenSource.Token);
 
                         if (_breakTranslation)
                         {
@@ -926,14 +925,13 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         _translationProgressIndex = index;
                         _translationProgressDirty = true;
                         progressBar1.Value = index;
+
                         // Proceed to the next line only after successfully obtaining the translation to avoid intermittent translation results
                         if (!string.IsNullOrWhiteSpace(translation))
                         {   
                             linesTranslated++;   
                             index++;
                         }
-
-
 
                         Application.DoEvents();
                         if (_breakTranslation || _singleLineMode)
