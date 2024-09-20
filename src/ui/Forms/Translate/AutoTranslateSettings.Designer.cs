@@ -140,7 +140,7 @@
             this.nikseUpDownMaxMerges.ButtonForeColorOver = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
             this.nikseUpDownMaxMerges.DecimalPlaces = 0;
             this.nikseUpDownMaxMerges.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-            this.nikseUpDownMaxMerges.Location = new System.Drawing.Point(217, 62);
+            this.nikseUpDownMaxMerges.Location = new System.Drawing.Point(217, 58);
             this.nikseUpDownMaxMerges.Maximum = int.MaxValue;
             this.nikseUpDownMaxMerges.Minimum = -1m;
             this.nikseUpDownMaxMerges.Name = "nikseUpDownMaxMerges";
