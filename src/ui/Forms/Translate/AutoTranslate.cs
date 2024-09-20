@@ -919,7 +919,7 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         var unformattedText = f.SetTagsAndReturnTrimmed(p.Text, source.Code);
 
                         var translation = await _autoTranslator.Translate(unformattedText, source.Code, target.Code, _cancellationTokenSource.Token);
-                        MessageBox.Show("Max Retry Attempts: " + translation, "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
 
 
                         if (_breakTranslation)
@@ -941,6 +941,8 @@ namespace Nikse.SubtitleEdit.Forms.Translate
                         if (!string.IsNullOrWhiteSpace(translation))
                         {
                             linesTranslated++;
+                            // 调试用
+                            MessageBox.Show("Max Retry Attempts: " + translation, "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
 
                         _translationProgressIndex = index;
